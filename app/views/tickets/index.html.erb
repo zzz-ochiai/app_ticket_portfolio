@@ -1,2 +1,20 @@
-<h1>Tickets#index</h1>
-<p>Find me in app/views/tickets/index.html.erb</p>
+<!-- app/views/tickets/index.html.erb -->
+<h1>チケット一覧</h1>
+
+<% if @tickets.any? %>
+  <% @tickets.each do |ticket| %>
+    <div>
+      <p>
+        チケットID: <%= ticket.id %>
+        /
+        状態: <%= ticket.used ? "使用済み" : "未使用" %>
+      </p>
+
+      <% unless ticket.used %>
+        <%= button_to "使用する", ticket_path(ticket), method: :patch %>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <p>まだチケットはありません</p>
+<% end %>
