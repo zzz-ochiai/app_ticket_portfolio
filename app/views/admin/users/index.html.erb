@@ -1,0 +1,27 @@
+<h1>ユーザー一覧（管理者）</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>メール</th>
+      <th>権限</th>
+      <th>詳細</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.email %></td>
+        <td>
+          <%= user.admin? ? "管理者" : "一般" %>
+        </td>
+        <td>
+          <%= link_to "詳細", admin_user_path(user) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
