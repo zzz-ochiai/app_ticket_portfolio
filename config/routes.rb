@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
   get "tickets/index"
-  devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  devise_for :users
+  
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
@@ -15,6 +13,19 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   root "tickets#index"
+  # トップページのルーティング
 
-  resources :tickets, only: [:index]
+  resources :tickets, only: [:index, :update]
+  
+  namespace :admin do
+    resources :users, only: [:index, :show]
+    resources :tickets, only: [] do
+      member do
+        patch :revert
+      end
+      # resourcesを使ってTicketリソースを１つのまとまりにすることで、コードの可読性を上げている。
+      # memberを使うことで特定のチケットに対してアクションを定義できる。
+    end
+  end
+  
 end
