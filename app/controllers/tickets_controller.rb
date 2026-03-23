@@ -5,12 +5,21 @@ class TicketsController < ApplicationController
   end
 
   def update
-    ticket = current_user.tickets.find(params[:id])
-    # ログイン中のユーザーのチケットから、更新するチケットを見つける
-    # Viewで使わないため、インスタンス変数ではなくローカル変数で定義
-    ticket.update!(used: true)
-    # 見つけたユーザーのチケットを使用済みに更新
-    redirect_to tickets_path, notice: "チケットを使用しました。"
-    # チケット一覧にリダイレクトして、使用完了のメッセージを表示
+    @ticket = current_user.tickets.find(params[:id])
+
+    client_time = Time.parse(params[:updated_at])
+
+    if client_time > @ticket.updated_at
+      @ticket.update(ticket_params)
+      render json: @ticket
+    else
+      render json: { error: "古い更新です" }, status: :conflict
+    end
+  end
+
+  private
+
+  def ticket_params
+    params.require(:ticket).permit(:used)
   end
 end

@@ -1,20 +1,17 @@
-<!-- app/views/tickets/index.html.erb -->
 <h1>チケット一覧</h1>
 
-<% if @tickets.any? %>
-  <% @tickets.each do |ticket| %>
-    <div>
-      <p>
-        チケットID: <%= ticket.id %>
-        /
-        状態: <%= ticket.used ? "使用済み" : "未使用" %>
-      </p>
+<% @tickets.each do |ticket| %>
+  <div class="ticket-item">
+    <span class="ticket-status"><%= ticket.used ? "使用済み" : "未使用" %></span>
 
-      <% unless ticket.used %>
-        <%= button_to "使用する", ticket_path(ticket), method: :patch %>
-      <% end %>
-    </div>
-  <% end %>
-<% else %>
-  <p>まだチケットはありません</p>
+    <button
+      type="button"
+      class="ticket-button"
+      data-used="<%= ticket.used %>"
+      data-ticket-id="<%= ticket.id %>"
+      data-updated-at="<%= ticket.updated_at.iso8601 %>"
+      style="<%= ticket.used ? 'display: none;' : 'display: inline-block;' %>">
+      使用済みにする
+    </button>
+  </div>
 <% end %>

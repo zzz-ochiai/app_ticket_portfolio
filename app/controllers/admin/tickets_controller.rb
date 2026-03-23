@@ -6,8 +6,11 @@ class Admin::TicketsController < Admin::BaseController
 
   def revert
     @ticket =Ticket.find(params[:id])
-    @ticket.update!(used: false)
 
-    redirect_to admin_user_path(@ticket.user), notice: "チケットを未使用に戻しました"
+    if @ticket.update!(used: false)
+      redirect_to admin_user_path(@ticket.user), notice: "チケットを未使用に戻しました"
+    else
+      redirect_to admin_user_path(@ticket.user), alert: "チケットの状態を更新できませんでした"
+    end
   end
 end
