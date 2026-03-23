@@ -8,6 +8,6 @@ class Admin::TicketsController < Admin::BaseController
     @ticket =Ticket.find(params[:id])
     @ticket.update!(used: false)
 
-    redirect_to admin_user_tickets_path(@ticket.user), notice: "チケットを未使用に戻しました"
+    redirect_to admin_user_path(@ticket.user), notice: "チケットを未使用に戻しました"
   end
 end

@@ -13,9 +13,19 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   root "tickets#index"
+  # トップページのルーティング
+
+  resources :tickets, only: [:index, :update]
   
   namespace :admin do
     resources :users, only: [:index, :show]
+    resources :tickets, only: [] do
+      member do
+        patch :revert
+      end
+      # resourcesを使ってTicketリソースを１つのまとまりにすることで、コードの可読性を上げている。
+      # memberを使うことで特定のチケットに対してアクションを定義できる。
+    end
   end
   
 end

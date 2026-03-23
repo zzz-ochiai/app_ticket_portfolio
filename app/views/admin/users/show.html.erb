@@ -1,2 +1,38 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<h1>ユーザー詳細</h1>
+
+<p>ID: <%= @user.id %></p>
+<p>メール: <%= @user.email %></p>
+<p>権限: <%= @user.admin? ? "管理者" : "一般" %></p>
+
+<h2>チケット一覧</h2>
+
+<% if @user.tickets.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>状態</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user.tickets.each do |ticket| %>
+        <tr>
+          <td><%= ticket.id %></td>
+          <td><%= ticket.used? ? "使用済み" : "未使用" %></td>
+          <td>
+            <% if ticket.used? %>
+              <%= button_to "未使用に戻す", revert_admin_ticket_path(ticket), method: :patch %>
+            <% else %>
+              -
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>チケットはありません</p>
+<% end %>
+
+<p><%= link_to "一覧に戻る", admin_users_path %></p>
