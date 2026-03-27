@@ -1,15 +1,12 @@
 <h1>チケット一覧</h1>
 
-<% if @tickets.any? %>
-  <% @tickets.each do |ticket| %>
-    <div>
-      <p>チケットID: <%= ticket.id %></p>
+<% @tickets.each do |ticket| %>
+  <p><%= ticket.title %></p>
 
-      <button type="button" class="ticket-button" data-used="<%= ticket.used %>">
-        <%= ticket.used ? "使用済み" : "未使用" %>
-      </button>
-    </div>
+  <% if ticket.used? %>
+    <p>使用済み</p>
+  <% else %>
+    <p>未使用</p>
+    <%= button_to "使用する", ticket_path(ticket), method: :patch %>
   <% end %>
-<% else %>
-  <p>まだチケットはありません</p>
 <% end %>
