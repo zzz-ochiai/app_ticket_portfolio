@@ -1,21 +1,36 @@
 console.log("ticket_toggle.js loaded")
 
 document.addEventListener("turbo:load", () => {
-  console.log("turbo:load fired")
-
   const buttons = document.querySelectorAll(".ticket-button")
-  console.log("buttons:", buttons.length)
 
   buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const used = button.dataset.used === "true"
+    const status = button.previousElementSibling
+    const ticketId = button.dataset.ticketId
+    const saved = localStorage.getItem(`ticket-${ticketId}`)
 
-      if (used) {
-        button.textContent = "未使用"
-        button.dataset.used = "false"
-      } else {
-        button.textContent = "使用済み"
+    if (saved === "true") {
+      status.textContent = "使用済み"
+      button.textContent = "未使用に戻す"
+      button.dataset.used = "true"
+    } else if (saved === "false") {
+      status.textContent = "未使用"
+      button.textContent = "使用済みにする"
+      button.dataset.used = "false"
+    }
+
+    button.addEventListener("click", () => {
+      console.log("button clicked:")
+
+      if (button.dataset.used === "false") {
+        status.textContent = "使用済み"
+        button.textContent = "未使用に戻す"
         button.dataset.used = "true"
+        localStorage.setItem(`ticket-${ticketId}`, "true")
+      } else {
+        status.textContent = "未使用"
+        button.textContent = "使用済みにする"
+        button.dataset.used = "false"
+        localStorage.setItem(`ticket-${ticketId}`, "false")
       }
     })
   })
