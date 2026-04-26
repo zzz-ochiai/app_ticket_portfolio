@@ -8,8 +8,10 @@
       type="button"
       class="ticket-button"
       data-used="<%= ticket.used %>"
-      data-ticket-id="<%= ticket.id %>">
-      <%= ticket.used ? "未使用に戻す" : "使用済みにする" %>
+      data-ticket-id="<%= ticket.id %>"
+      data-updated-at="<%= ticket.updated_at.iso8601 %>"
+      style="<%= ticket.used ? 'display: none;' : 'display: inline-block;' %>">
+      使用済みにする
     </button>
   </div>
 <% end %>
