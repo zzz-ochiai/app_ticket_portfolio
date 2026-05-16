@@ -2,6 +2,11 @@ Rails.application.routes.draw do
   get "tickets/index"
 
   devise_for :users
+  devise_for :admins
+
+  namespace :admin do
+    root "dashboard#index"
+  end
   
   get "up" => "rails/health#show", as: :rails_health_check
 
@@ -17,7 +22,7 @@ Rails.application.routes.draw do
 
   resources :tickets, only: [:index, :update]
   
-  namespace :admin do
+  namespace :old_admin do
     resources :users, only: [:index, :show]
     resources :tickets, only: [] do
       member do

@@ -1,0 +1,2 @@
+module OldAdmin::TicketsHelper
+end

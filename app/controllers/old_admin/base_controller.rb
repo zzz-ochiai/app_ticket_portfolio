@@ -1,4 +1,4 @@
-class Admin::BaseController < ApplicationController
+class OldAdmin::BaseController < ApplicationController
   before_action :authenticate_user!
   before_action :require_admin!
   # 管理者専用のコントローラーで、ユーザーが管理者であることを確認するためのbefore_actionを追加。

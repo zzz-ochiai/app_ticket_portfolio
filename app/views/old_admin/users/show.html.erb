@@ -34,7 +34,7 @@
             </td>
             <td>
               <% if ticket.used? %>
-                <%= button_to "未使用に戻す", revert_admin_ticket_path(ticket), method: :patch, class: "admin-button" %>
+                <%= button_to "未使用に戻す", revert_old_admin_ticket_path(ticket), method: :patch, class: "admin-button" %>
               <% else %>
                 -
               <% end %>
@@ -48,6 +48,6 @@
   <% end %>
 
   <p class="back-link">
-    <%= link_to "一覧に戻る", admin_users_path %>
+    <%= link_to "一覧に戻る", old_admin_users_path %>
   </p>
 </div>
