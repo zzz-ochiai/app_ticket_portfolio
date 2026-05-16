@@ -6,7 +6,6 @@
       <tr>
         <th>ID</th>
         <th>メール</th>
-        <th>権限</th>
         <th>詳細</th>
       </tr>
     </thead>
@@ -16,11 +15,6 @@
         <tr>
           <td><%= user.id %></td>
           <td><%= user.email %></td>
-          <td>
-            <span class="role-badge <%= user.admin? ? 'admin' : 'general' %>">
-              <%= user.admin? ? "管理者" : "一般" %>
-            </span>
-          </td>
           <td>
             <%= link_to "詳細", admin_user_path(user), class: "admin-link" %>
           </td>

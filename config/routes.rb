@@ -2,6 +2,24 @@ Rails.application.routes.draw do
   get "tickets/index"
 
   devise_for :users
+  devise_for :admins, controllers: {
+    registrations: "admins/registrations"
+  }
+
+  namespace :admin do
+    root "dashboard#index"
+
+    resources :users, only: [:index, :show] do
+      resources :tickets, only: [:create] 
+    end
+
+    resources :tickets, only: [:destroy] do
+      member do
+        patch :revert
+        patch :mark_used
+      end
+    end
+  end
   
   get "up" => "rails/health#show", as: :rails_health_check
 
@@ -16,16 +34,5 @@ Rails.application.routes.draw do
   # トップページのルーティング
 
   resources :tickets, only: [:index, :update]
-  
-  namespace :admin do
-    resources :users, only: [:index, :show]
-    resources :tickets, only: [] do
-      member do
-        patch :revert
-      end
-      # resourcesを使ってTicketリソースを１つのまとまりにすることで、コードの可読性を上げている。
-      # memberを使うことで特定のチケットに対してアクションを定義できる。
-    end
-  end
   
 end

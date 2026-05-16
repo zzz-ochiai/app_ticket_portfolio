@@ -1,0 +1,2 @@
+module OldAdmin::UsersHelper
+end
