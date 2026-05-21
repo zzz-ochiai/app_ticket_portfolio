@@ -35,15 +35,4 @@ Rails.application.routes.draw do
 
   resources :tickets, only: [:index, :update]
   
-  namespace :old_admin do
-    resources :users, only: [:index, :show]
-    resources :tickets, only: [] do
-      member do
-        patch :revert
-      end
-      # resourcesを使ってTicketリソースを１つのまとまりにすることで、コードの可読性を上げている。
-      # memberを使うことで特定のチケットに対してアクションを定義できる。
-    end
-  end
-  
 end
