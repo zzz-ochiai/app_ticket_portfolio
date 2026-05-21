@@ -1,5 +1,24 @@
-<h1>Adminログイン成功</h1>
+<div class="admin-container">
+  <div class="admin-card">
 
-<p>
-  <%= link_to "ユーザー一覧へ", admin_users_path %>
-</p>
+    <h1>Admin Dashboard</h1>
+
+    <p>
+      管理者としてログイン中
+    </p>
+
+    <p>
+      <%= link_to "ユーザー一覧へ",
+          admin_users_path,
+          class: "admin-link" %>
+    </p>
+
+    <p>
+      <%= button_to "ログアウト",
+          destroy_admin_session_path,
+          method: :delete,
+          class: "admin-button" %>
+    </p>
+
+  </div>
+</div>
