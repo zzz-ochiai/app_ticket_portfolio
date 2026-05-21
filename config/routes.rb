@@ -6,10 +6,18 @@ Rails.application.routes.draw do
     registrations: "admins/registrations"
   }
 
-  get "admins/approve", to: "admins/approvals#show"
-
   namespace :admin do
     root "dashboard#index"
+
+    resources :users, only: [:index, :show] do
+      resources :tickets, only: [:create] 
+    end
+
+    resources :tickets, only: [:destroy] do
+      member do
+        patch :revert
+      end
+    end
   end
   
   get "up" => "rails/health#show", as: :rails_health_check

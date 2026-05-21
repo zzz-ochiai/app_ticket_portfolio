@@ -1,0 +1,25 @@
+<h1>ユーザー一覧（管理者）</h1>
+
+<div class="admin-container">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>メール</th>
+        <th>詳細</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= user.email %></td>
+          <td>
+            <%= link_to "詳細", admin_user_path(user), class: "admin-link" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

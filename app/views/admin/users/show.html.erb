@@ -1,0 +1,35 @@
+<h1><%= @user.email %> のチケット一覧</h1>
+
+<%= button_to "チケット作成",
+    admin_user_tickets_path(@user),
+    method: :post %>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>状態</th>
+    <th>操作</th>
+  </tr>
+
+  <% @tickets.each do |ticket| %>
+    <tr>
+      <td><%= ticket.id %></td>
+      <td><%= ticket.used ? "使用済み" : "未使用" %></td>
+
+      <td>
+        <% if ticket.used %>
+          <%= button_to "未使用に戻す",
+              revert_admin_ticket_path(ticket),
+              method: :patch %>
+        <% end %>
+
+        <%= button_to "削除",
+            admin_ticket_path(ticket),
+            method: :delete,
+            data:{turbo_confirm: "削除しますか？" } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to "一覧に戻る", admin_users_path %>
