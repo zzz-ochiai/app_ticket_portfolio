@@ -14,20 +14,27 @@
   <% @tickets.each do |ticket| %>
     <tr>
       <td><%= ticket.id %></td>
-      <td><%= ticket.used ? "使用済み" : "未使用" %></td>
 
+      <td>
+        <%= ticket.used ? "使用済み" : "未使用" %>
+      </td>
+      
       <td>
         <% if ticket.used %>
           <%= button_to "未使用に戻す",
-              revert_admin_ticket_path(ticket),
-              method: :patch %>
+            revert_admin_ticket_path(ticket),
+            method: :patch %>
+        <% else %>
+          <%= button_to "使用済みにする",
+            mark_used_admin_ticket_path(ticket),
+            method: :patch %>
         <% end %>
 
         <%= button_to "削除",
             admin_ticket_path(ticket),
             method: :delete,
             data:{turbo_confirm: "削除しますか？" } %>
-      </td>
+</td>
     </tr>
   <% end %>
 </table>

@@ -21,6 +21,16 @@ class Admin::TicketsController < Admin::BaseController
     end
   end
 
+  def mark_used
+    @ticket = Ticket.find(params[:id])
+
+    if @ticket.update(used: true)
+      redirect_to admin_user_path(@ticket.user), notice: "チケットを使用済みにしました"
+    else
+      redirect_to admin_user_path(@ticket.user), alert: "チケットの状態を更新できませんでした"
+    end
+  end
+
   def revert
     @ticket = Ticket.find(params[:id])
 

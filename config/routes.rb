@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :tickets, only: [:destroy] do
       member do
         patch :revert
+        patch :mark_used
       end
     end
   end
