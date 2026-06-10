@@ -2,9 +2,7 @@ Rails.application.routes.draw do
   get "tickets/index"
 
   devise_for :users
-  devise_for :admins, controllers: {
-    registrations: "admins/registrations"
-  }
+  devise_for :admins
 
   namespace :admin do
     root "dashboard#index"
