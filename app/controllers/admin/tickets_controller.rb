@@ -41,3 +41,14 @@ class Admin::TicketsController < Admin::BaseController
     end
   end
 end
+
+# ＜学習メモ＞
+# updateメソッドはActiveRecordで定義されており、以下３つの処理がまとめられている
+# @ticket.update(used: true)の場合
+# （１）@ticketのused:キーの状態をtrueに変更
+# （２）データベースへ保存
+# （３）以上の操作が成功ならtrue、失敗ならfalseを返す
+# seveメソッドも同様にデータベースへ保存し、作が成功ならtrue、失敗ならfalseを返す
+# destroyメソッドのみ返り値は成功でも失敗でも削除したメソッドが返り値となる、そのため成功の判別のためにはdestroyed?を使う
+# redirect_toメソッドの第２引数ではいくつかのオプションを渡せる、notice:では通知メッセージを渡す
+# ⇒渡されたメッセージはflash[:notice] = "メッセージ"として一時的に保存され、遷移先のViewで表示させることができるようになる

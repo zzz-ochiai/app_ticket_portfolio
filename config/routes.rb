@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
-  get "tickets/index"
-
   devise_for :users
   devise_for :admins
 
+  #ユーザー用ルーティング
+  resources :tickets, only: [:index, :update]
+  root "tickets#index"
+
+  #管理者用ルーティング
   namespace :admin do
     root "dashboard#index"
 
@@ -18,19 +21,10 @@ Rails.application.routes.draw do
       end
     end
   end
-  
+
+  #ヘルスチェック用ルーティング
   get "up" => "rails/health#show", as: :rails_health_check
-
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
-  # Defines the root path route ("/")
-  # root "posts#index"
-
-  root "tickets#index"
-  # トップページのルーティング
-
-  resources :tickets, only: [:index, :update]
-  
 end
+
+# ＜学習メモ＞
+# device_forでは認証スコープ（認証先を区別するための対象）の設定をしている

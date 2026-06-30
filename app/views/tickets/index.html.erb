@@ -1,20 +1,15 @@
-<h1>チケット一覧</h1>
-
-<div class="tickets-container">
-  <% @tickets.each do |ticket| %>
-    <div class="ticket-card">
-      <span class="ticket-status <%= ticket.used ? 'used' : 'unused' %>">
-        <%= ticket.used ? "使用済み" : "未使用" %>
-      </span>
-
-      <button
-        type="button"
-        class="ticket-button"
-        data-used="<%= ticket.used %>"
+<div class="tickets-page">
+  <div class="tickets-container">
+    <% @tickets.each do |ticket| %>
+      <div
+        class="ticket-card <%= "used" if ticket.used %>"
         data-ticket-id="<%= ticket.id %>"
         data-updated-at="<%= ticket.updated_at.iso8601 %>">
-        <%= ticket.used ? "未使用に戻す" : "使用済みにする" %>
-      </button>
-    </div>
-  <% end %>
+
+        <div class="ticket-image-wrapper">
+          <%= image_tag "tickets/ticket_unused.png", class: "ticket-image" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

@@ -8,16 +8,11 @@
     </p>
 
     <p>
-      <%= link_to "ユーザー一覧へ",
-          admin_users_path,
-          class: "admin-link" %>
+      <%= link_to "ユーザー一覧へ", admin_users_path, class: "admin-link" %>
     </p>
 
     <p>
-      <%= button_to "ログアウト",
-          destroy_admin_session_path,
-          method: :delete,
-          class: "admin-button" %>
+      <%= button_to "ログアウト", destroy_admin_session_path, method: :delete, class: "admin-button" %>
     </p>
 
   </div>
